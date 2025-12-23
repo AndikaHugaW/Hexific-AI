@@ -14,12 +14,12 @@ from app.api import audit, assist, health
 async def lifespan(app: FastAPI):
     """Application lifespan events"""
     # Startup
-    print("🚀 Hexific API starting up...")
+    print("[*] Hexific API starting up...")
     print(f"   Debug mode: {settings.debug}")
     print(f"   Frontend URL: {settings.frontend_url}")
     yield
     # Shutdown
-    print("👋 Hexific API shutting down...")
+    print("[*] Hexific API shutting down...")
 
 
 # Create FastAPI application

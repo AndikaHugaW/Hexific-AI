@@ -15,7 +15,9 @@ export async function GET(
   const queryString = url.search;
   
   try {
-    const response = await fetch(`${BACKEND_URL}/${pathString}${queryString}`, {
+    const targetUrl = `${BACKEND_URL}/${pathString}${queryString}`;
+    console.log(`[Proxy] GET Request to: ${targetUrl}`);
+    const response = await fetch(targetUrl, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -69,18 +71,27 @@ export async function POST(
       fetchOptions.body = body as string;
     }
 
-    const response = await fetch(`${BACKEND_URL}/${pathString}`, fetchOptions);
-
-    const data = await response.text();
+    const targetUrl = `${BACKEND_URL}/${pathString}`;
+    console.error(`[Proxy POST] Attempting: ${targetUrl}`);
     
-    return new NextResponse(data, {
-      status: response.status,
-      headers: {
-        'Content-Type': response.headers.get('Content-Type') || 'application/json',
-      },
-    });
+    try {
+      const response = await fetch(targetUrl, fetchOptions);
+      console.error(`[Proxy POST] Received response: ${response.status}`);
+
+      const data = await response.text();
+      
+      return new NextResponse(data, {
+        status: response.status,
+        headers: {
+          'Content-Type': response.headers.get('Content-Type') || 'application/json',
+        },
+      });
+    } catch (fetchError) {
+      console.error(`[Proxy POST] Fetch Error:`, fetchError);
+      throw fetchError;
+    }
   } catch (error) {
-    console.error('Proxy error:', error);
+    console.error('[Proxy POST] Global Error:', error);
     return NextResponse.json(
       { error: 'Failed to connect to backend server', detail: String(error) },
       { status: 502 }

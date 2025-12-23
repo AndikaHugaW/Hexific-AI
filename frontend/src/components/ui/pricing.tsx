@@ -94,7 +94,7 @@ export function PricingSection({
 						transition: 'all 0.3s',
 					}}
 				>
-					Bulanan
+					Monthly
 				</button>
 				<button
 					onClick={() => setFrequency('yearly')}
@@ -112,7 +112,7 @@ export function PricingSection({
 						transition: 'all 0.3s',
 					}}
 				>
-					Tahunan
+					Yearly
 				</button>
 			</div>
 
@@ -178,7 +178,7 @@ export function PricingSection({
 									${plan.price[frequency]}
 								</span>
 								<span style={{ color: '#9ca3af' }}>
-									{plan.price[frequency] > 0 ? `/${frequency === 'monthly' ? 'bulan' : 'tahun'}` : ''}
+									{plan.price[frequency] > 0 ? `/${frequency === 'monthly' ? 'month' : 'year'}` : ''}
 								</span>
 							</h3>
 						</div>
@@ -236,51 +236,51 @@ export function PricingSection({
 	);
 }
 
-// Data untuk Hexific AI
+// Data for Hexific AI
 export const HEXIFIC_PLANS: Plan[] = [
 	{
 		name: 'Free Tier',
-		info: 'Sempurna untuk developer individu',
+		info: 'Perfect for individual developers',
 		price: {
 			monthly: 0,
 			yearly: 0,
 		},
 		features: [
-			{ text: '3 audit per hari' },
-			{ text: 'Analisis keamanan dasar' },
-			{ text: 'Akses AI Assistant' },
-			{ text: 'Deteksi kerentanan umum' },
+			{ text: '3 audits per day' },
+			{ text: 'Basic security analysis' },
+			{ text: 'AI Assistant access' },
+			{ text: 'Common vulnerability detection' },
 			{ text: 'Community support' },
 		],
 		btn: {
-			text: 'Mulai Gratis',
+			text: 'Start Free',
 			href: '#',
 		},
 	},
 	{
 		highlighted: true,
 		name: 'Professional',
-		info: 'Ideal untuk tim pengembangan',
+		info: 'Ideal for development teams',
 		price: {
 			monthly: 49,
 			yearly: 490,
 		},
 		features: [
-			{ text: 'Unlimited audit' },
-			{ text: 'Analisis mendalam AI' },
+			{ text: 'Unlimited audits' },
+			{ text: 'Deep AI analysis' },
 			{ text: 'Priority support' },
 			{ text: 'Custom security rules' },
 			{ text: 'Detailed vulnerability reports' },
 			{ text: 'API access' },
 		],
 		btn: {
-			text: 'Upgrade Sekarang',
+			text: 'Upgrade Now',
 			href: '#',
 		},
 	},
 	{
 		name: 'Enterprise',
-		info: 'Untuk organisasi besar',
+		info: 'For large organizations',
 		price: {
 			monthly: 199,
 			yearly: 1990,
@@ -294,7 +294,7 @@ export const HEXIFIC_PLANS: Plan[] = [
 			{ text: '24/7 premium support' },
 		],
 		btn: {
-			text: 'Hubungi Sales',
+			text: 'Contact Sales',
 			href: '#',
 		},
 	},

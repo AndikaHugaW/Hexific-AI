@@ -12,7 +12,7 @@ const HeroCanvas = dynamic(
   () => import("./HeroCanvas"),
   { 
     ssr: false, 
-    loading: () => <div style={{ position: 'absolute', inset: 0, backgroundColor: '#030308' }} />
+    loading: () => <div style={{ position: 'absolute', inset: 0, backgroundColor: '#000000' }} />
   }
 );
 
@@ -83,11 +83,11 @@ export default function SyntheticHero() {
       minHeight: '100vh',
       width: '100%',
       overflow: 'hidden',
-      backgroundColor: '#030308',
+      backgroundColor: '#000000',
       zIndex: 0
     }}>
       
-      {/* Three.js Shader Background - Black Dominant */}
+      {/* Three.js Shader Background - Black with subtle green */}
       <div style={{ 
         position: 'absolute', 
         inset: 0, 

@@ -37,7 +37,7 @@ export function NeonButton({
         overflow: 'hidden',
         backgroundColor: isHovered ? '#059669' : '#10b981',
         color: '#030308',
-        borderWidth: '0px',
+        borderWidth: '1px',
         borderStyle: 'solid',
         borderColor: 'transparent',
         boxShadow: isHovered ? '0 0 30px rgba(52, 211, 153, 0.5)' : 'none',

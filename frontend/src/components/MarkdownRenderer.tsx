@@ -9,132 +9,27 @@ interface MarkdownRendererProps {
 
 export default function MarkdownRenderer({ content, className = "" }: MarkdownRendererProps) {
   return (
-    <div 
-      className={`prose prose-invert prose-emerald max-w-none ${className}`}
-      style={{
-        // Custom styling for dark theme
-        color: 'rgba(255, 255, 255, 0.85)',
-      }}
-    >
+    <div className={`prose prose-invert prose-emerald max-w-none prose-p:leading-relaxed prose-pre:bg-black/40 prose-pre:border prose-pre:border-emerald-500/10 prose-code:text-emerald-400 prose-code:bg-emerald-500/10 prose-code:px-1 prose-code:rounded-md prose-code:before:content-none prose-code:after:content-none ${className}`}>
       <ReactMarkdown
         components={{
-          // Custom renderers for each element type
-          h1: ({ children }) => (
-            <h1 style={{ 
-              color: 'white', 
-              fontSize: '1.75rem', 
-              fontWeight: 700,
-              marginBottom: '1rem',
-              borderBottom: '1px solid rgba(52, 211, 153, 0.3)',
-              paddingBottom: '0.5rem'
-            }}>
-              {children}
-            </h1>
-          ),
-          h2: ({ children }) => (
-            <h2 style={{ 
-              color: 'white', 
-              fontSize: '1.5rem', 
-              fontWeight: 600,
-              marginTop: '1.5rem',
-              marginBottom: '0.75rem'
-            }}>
-              {children}
-            </h2>
-          ),
-          h3: ({ children }) => (
-            <h3 style={{ 
-              color: 'white', 
-              fontSize: '1.25rem', 
-              fontWeight: 600,
-              marginTop: '1.25rem',
-              marginBottom: '0.5rem'
-            }}>
-              {children}
-            </h3>
-          ),
-          h4: ({ children }) => (
-            <h4 style={{ 
-              color: '#34d399', 
-              fontSize: '1.1rem', 
-              fontWeight: 600,
-              marginTop: '1rem',
-              marginBottom: '0.5rem'
-            }}>
-              {children}
-            </h4>
-          ),
-          p: ({ children }) => (
-            <p style={{ 
-              color: 'rgba(255, 255, 255, 0.7)', 
-              lineHeight: 1.7,
-              marginBottom: '0.75rem'
-            }}>
-              {children}
-            </p>
-          ),
-          strong: ({ children }) => (
-            <strong style={{ color: 'white', fontWeight: 600 }}>
-              {children}
-            </strong>
-          ),
-          ul: ({ children }) => (
-            <ul style={{ 
-              listStyleType: 'disc', 
-              paddingLeft: '1.5rem',
-              marginBottom: '1rem'
-            }}>
-              {children}
-            </ul>
-          ),
-          ol: ({ children }) => (
-            <ol style={{ 
-              listStyleType: 'decimal', 
-              paddingLeft: '1.5rem',
-              marginBottom: '1rem'
-            }}>
-              {children}
-            </ol>
-          ),
-          li: ({ children }) => (
-            <li style={{ 
-              color: 'rgba(255, 255, 255, 0.7)', 
-              marginBottom: '0.25rem'
-            }}>
-              {children}
-            </li>
-          ),
-          code: ({ children }) => (
-            <code style={{ 
-              backgroundColor: 'rgba(52, 211, 153, 0.1)',
-              color: '#34d399',
-              padding: '0.15rem 0.4rem',
-              borderRadius: '4px',
-              fontSize: '0.9em'
-            }}>
-              {children}
-            </code>
-          ),
+          h1: ({ children }) => <h1 className="text-xl font-bold border-b border-emerald-500/20 pb-2 mb-4">{children}</h1>,
+          h2: ({ children }) => <h2 className="text-lg font-bold mt-6 mb-3">{children}</h2>,
+          h3: ({ children }) => <h3 className="text-base font-bold mt-4 mb-2">{children}</h3>,
+          h4: ({ children }) => <h4 className="text-sm font-bold mt-3 mb-1 text-emerald-400">{children}</h4>,
+          p: ({ children }) => <p className="text-gray-400 leading-relaxed mb-4">{children}</p>,
+          li: ({ children }) => <li className="text-gray-400 mb-1">{children}</li>,
           pre: ({ children }) => (
-            <pre style={{ 
-              backgroundColor: 'rgba(0, 0, 0, 0.5)',
-              padding: '1rem',
-              borderRadius: '8px',
-              overflow: 'auto',
-              marginBottom: '1rem',
-              border: '1px solid rgba(255, 255, 255, 0.1)'
-            }}>
+            <pre className="relative p-4 rounded-xl bg-black/60 border border-emerald-500/10 overflow-x-auto my-4 scrollbar-thin scrollbar-thumb-emerald-500/20">
               {children}
             </pre>
           ),
+          code: ({ children }) => (
+            <code className="px-1.5 py-0.5 rounded-md bg-emerald-500/10 text-emerald-400 font-mono text-sm break-all">
+              {children}
+            </code>
+          ),
           blockquote: ({ children }) => (
-            <blockquote style={{ 
-              borderLeft: '4px solid #34d399',
-              paddingLeft: '1rem',
-              marginLeft: 0,
-              color: 'rgba(255, 255, 255, 0.6)',
-              fontStyle: 'italic'
-            }}>
+            <blockquote className="border-l-4 border-emerald-500/50 bg-emerald-500/5 px-4 py-2 italic text-gray-400 my-4 rounded-r-lg">
               {children}
             </blockquote>
           ),

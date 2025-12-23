@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useMemo } from "react";
+import { useRef, useMemo, useEffect } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import * as THREE from "three";
 
@@ -47,16 +47,16 @@ const fragmentShader = `
       c += 2.5 / length(vec2(sin(i.x + t) / 0.15, cos(i.y + t) / 0.15));
     }
     
-    c /= 12.0; // Much darker base
+    c /= 8.0; // Slightly brighter base than before
     
     // BLACK DOMINANT with subtle green accents
-    vec3 baseBlack = vec3(0.01, 0.02, 0.015);  // Almost pure black
-    vec3 darkGreen = vec3(0.02, 0.12, 0.06);   // Very dark green
-    vec3 accentGreen = vec3(0.06, 0.45, 0.25); // Subtle emerald accent
+    vec3 baseBlack = vec3(0.005, 0.01, 0.008);  // Deep black
+    vec3 darkGreen = vec3(0.01, 0.15, 0.08);   // Dark green
+    vec3 accentGreen = vec3(0.1, 0.6, 0.35);   // Vivid emerald accent
     
     // Mix colors - keep mostly black
-    vec3 finalColor = mix(baseBlack, darkGreen, c * 0.5);
-    finalColor = mix(finalColor, accentGreen, pow(c, 2.0) * 0.6); // Only bright spots get green
+    vec3 finalColor = mix(baseBlack, darkGreen, c * 0.4);
+    finalColor = mix(finalColor, accentGreen, pow(c, 1.8) * 0.8); // More visible highlights
     
     // Reduce overall brightness
     finalColor *= smoothstep(0.0, 0.8, c * 1.2);
@@ -75,15 +75,27 @@ function ShaderPlane() {
   const meshRef = useRef<THREE.Mesh>(null);
   const { size } = useThree();
   
+  // Update uniforms when size changes
   const uniforms = useMemo(() => ({
     u_time: { value: 0 },
     u_resolution: { value: new THREE.Vector2(size.width, size.height) },
-  }), []);
+  }), [size.width, size.height]);
+
+  useEffect(() => {
+    // Manual cleanup to prevent R3F dispose errors in Next.js/React 19
+    return () => {
+      if (meshRef.current) {
+        meshRef.current.geometry.dispose();
+        (meshRef.current.material as THREE.ShaderMaterial).dispose();
+      }
+    };
+  }, []);
 
   useFrame((state) => {
     if (!meshRef.current) return;
     const material = meshRef.current.material as THREE.ShaderMaterial;
     material.uniforms.u_time.value = state.clock.elapsedTime * 0.4;
+    // Always sync resolution
     material.uniforms.u_resolution.value.set(size.width, size.height);
   });
 
@@ -104,22 +116,54 @@ function ShaderPlane() {
    HERO CANVAS
 ============================================ */
 export default function HeroCanvas() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const isMountedRef = useRef(true);
+
+  useEffect(() => {
+    isMountedRef.current = true;
+    
+    return () => {
+      isMountedRef.current = false;
+      
+      // Delay cleanup to avoid race conditions
+      setTimeout(() => {
+        if (containerRef.current && !isMountedRef.current) {
+          const canvas = containerRef.current.querySelector('canvas');
+          if (canvas?.parentNode) {
+            try {
+              canvas.parentNode.removeChild(canvas);
+            } catch (e) {
+              // Silently handle cleanup errors
+              console.debug('Canvas cleanup handled');
+            }
+          }
+        }
+      }, 100);
+    };
+  }, []);
+
   return (
-    <Canvas 
-      camera={{ position: [0, 0, 1], fov: 75 }}
-      dpr={[1, 1.5]}
-      gl={{ 
-        antialias: true,
-        powerPreference: "high-performance",
-        alpha: true 
-      }}
-      style={{ 
-        position: 'absolute', 
-        inset: 0,
-        background: 'transparent'
-      }}
-    >
-      <ShaderPlane />
-    </Canvas>
+    <div ref={containerRef} style={{ width: '100%', height: '100%', position: 'relative' }}>
+      <Canvas 
+        key="hero-canvas-stable"
+        camera={{ position: [0, 0, 1], fov: 75 }}
+        dpr={[1, 1.5]}
+        gl={{ 
+          antialias: true,
+          powerPreference: "high-performance",
+          alpha: true 
+        }}
+        onCreated={({ gl }) => {
+          gl.setClearColor(0x000000, 0);
+        }}
+        style={{ 
+          position: 'absolute', 
+          inset: 0,
+          background: 'transparent'
+        }}
+      >
+        <ShaderPlane />
+      </Canvas>
+    </div>
   );
 }

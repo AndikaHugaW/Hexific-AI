@@ -22,6 +22,7 @@ import AIChat from "@/components/AIChat";
 import SyntheticHero from "@/components/ui/synthetic-hero";
 import HexificFeatureGrid from "@/components/ui/feature-grid-enterprise-grade";
 import { PricingSection, HEXIFIC_PLANS } from "@/components/ui/pricing";
+import AnimatedCTASection from "@/components/ui/animated-cta-section";
 import styles from "./page.module.css";
 
 type AuditMode = "zip" | "address";
@@ -252,28 +253,12 @@ export default function Home() {
         {/* Pricing Section */}
         <PricingSection 
           plans={HEXIFIC_PLANS}
-          heading="Paket Harga yang Sesuai untuk Anda"
-          description="Dipercaya oleh ribuan developer. Pilih paket yang tepat untuk kebutuhan audit keamanan smart contract Anda."
+          heading="Plans that Scale with You"
+          description="Trusted by thousands of developers. Choose the right plan for your smart contract security audit needs."
         />
 
         {/* CTA Section */}
-        <section className={styles.cta}>
-          <div className={styles.ctaContent}>
-            <h2>Ready to Secure Your Smart Contracts?</h2>
-            <p>
-              Start auditing today with 3 free audits. No wallet connection
-              required.
-            </p>
-            <div className={styles.ctaButtons}>
-              <a href="#audit" className="btn btn-primary">
-                Start Free Audit
-              </a>
-              <a href="/docs" className="btn btn-secondary">
-                View Documentation
-              </a>
-            </div>
-          </div>
-        </section>
+        <AnimatedCTASection />
       </main>
 
       {/* Footer */}

@@ -40,10 +40,10 @@
 }
 
 .networkButton.active {
-  background: rgba(99, 102, 241, 0.15);
+  background: rgba(16, 185, 129, 0.15);
   border-color: var(--primary);
   color: var(--primary-light);
-  box-shadow: 0 0 15px rgba(99, 102, 241, 0.2);
+  box-shadow: 0 0 15px rgba(16, 185, 129, 0.2);
 }
 
 .networkIcon {
@@ -87,7 +87,7 @@
 .input:focus {
   outline: none;
   border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
 }
 
 .input::placeholder {
@@ -146,7 +146,7 @@
 .explorerLink:hover {
   border-color: var(--primary);
   color: var(--primary);
-  background: rgba(99, 102, 241, 0.1);
+  background: rgba(16, 185, 129, 0.1);
 }
 
 .helperError {

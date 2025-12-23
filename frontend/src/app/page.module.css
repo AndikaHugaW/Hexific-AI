@@ -14,17 +14,19 @@
   padding: 5rem 2rem 8rem;
   width: 100%;
   max-width: 100%;
-  margin: 0 auto;
+  margin: -80px auto 0;
+  padding-top: calc(5rem + 80px);
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   overflow: hidden;
+  background: #000;
 }
 
 @media (min-width: 768px) {
   .hero {
-    padding: 8rem 4rem 10rem;
+    padding: calc(8rem + 80px) 4rem 10rem;
   }
 }
 
@@ -40,8 +42,8 @@
   align-items: center;
   gap: 0.5rem;
   padding: 0.5rem 1rem;
-  background: rgba(99, 102, 241, 0.15);
-  border: 1px solid rgba(99, 102, 241, 0.3);
+  background: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.3);
   border-radius: 9999px;
   color: var(--primary-light);
   font-size: 0.875rem;
@@ -372,7 +374,7 @@
   background: linear-gradient(
     180deg,
     transparent 0%,
-    rgba(99, 102, 241, 0.05) 50%,
+    rgba(16, 185, 129, 0.05) 50%,
     transparent 100%
   );
 }

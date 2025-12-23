@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { Send, Bot, User, Loader2, Sparkles, X } from "lucide-react";
+import MarkdownRenderer from "../MarkdownRenderer";
 import styles from "./AIChat.module.css";
 
 interface Message {
@@ -83,15 +84,14 @@ export default function AIChat({
         }
       );
 
-      // Try to parse as JSON, but handle non-JSON responses gracefully
       let data;
       const contentType = response.headers.get('content-type');
       if (contentType && contentType.includes('application/json')) {
         data = await response.json();
       } else {
-        const text = await response.text();
-        console.error('Non-JSON response:', text);
-        throw new Error(text || 'Server returned non-JSON response');
+        const textResponse = await response.text();
+        console.error('Non-JSON response:', textResponse);
+        throw new Error(textResponse || 'Server returned non-JSON response');
       }
 
       if (response.ok) {
@@ -110,7 +110,7 @@ export default function AIChat({
         const errorMessage: Message = {
           id: (Date.now() + 1).toString(),
           role: "assistant",
-          content: data.detail?.message || "Sorry, I encountered an error. Please try again.",
+          content: data.detail?.message || "Maaf, terjadi kesalahan. Silakan coba lagi.",
           timestamp: new Date(),
         };
         setMessages((prev) => [...prev, errorMessage]);
@@ -120,7 +120,7 @@ export default function AIChat({
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
         role: "assistant",
-        content: "Sorry, I couldn't connect to the AI service. Please try again later.",
+        content: "Maaf, tidak dapat terhubung ke layanan AI. Silakan coba lagi nanti.",
         timestamp: new Date(),
       };
       setMessages((prev) => [...prev, errorMessage]);
@@ -148,9 +148,9 @@ export default function AIChat({
               <Sparkles size={24} />
             </div>
             <div className={styles.headerInfo}>
-              <h3>AI Security Assistant</h3>
+              <h3>Asisten Keamanan AI</h3>
               <span className={styles.queriesLeft}>
-                {queriesLeft} / {maxQueries} free queries left
+                {queriesLeft} / {maxQueries} sisa kueri gratis
               </span>
             </div>
           </div>
@@ -163,34 +163,36 @@ export default function AIChat({
         <div className={styles.messages}>
           {messages.length === 0 && (
             <div className={styles.welcome}>
-              <Bot size={48} />
-              <h4>How can I help you?</h4>
+              <div className={styles.welcomeIcon}>
+                <Bot size={48} />
+              </div>
+              <h4>Ada yang bisa saya bantu?</h4>
               <p>
-                Ask me about smart contract vulnerabilities, security best
-                practices, or how to fix specific issues.
+                Tanyakan saya tentang kerentanan smart contract, praktik keamanan 
+                terbaik, atau cara memperbaiki masalah tertentu.
               </p>
               <div className={styles.suggestions}>
                 <button
-                  onClick={() => handleSend("What is a reentrancy attack?")}
+                  onClick={() => handleSend("Apa itu serangan reentrancy?")}
                   className={styles.suggestion}
                 >
-                  What is reentrancy?
+                  Apa itu reentrancy?
                 </button>
                 <button
                   onClick={() =>
-                    handleSend("How do I prevent integer overflow?")
+                    handleSend("Bagaimana cara mencegah integer overflow?")
                   }
                   className={styles.suggestion}
                 >
-                  Prevent overflow
+                  Mencegah overflow
                 </button>
                 <button
                   onClick={() =>
-                    handleSend("Explain access control best practices")
+                    handleSend("Jelaskan praktik terbaik akses kontrol")
                   }
                   className={styles.suggestion}
                 >
-                  Access control
+                  Akses kontrol
                 </button>
               </div>
             </div>
@@ -207,7 +209,13 @@ export default function AIChat({
                 {msg.role === "user" ? <User size={18} /> : <Bot size={18} />}
               </div>
               <div className={styles.messageContent}>
-                <pre className={styles.messageText}>{msg.content}</pre>
+                {msg.role === "user" ? (
+                  <div className={styles.messageText}>{msg.content}</div>
+                ) : (
+                  <div className={styles.aiMessageContent}>
+                    <MarkdownRenderer content={msg.content} />
+                  </div>
+                )}
                 <span className={styles.messageTime}>
                   {msg.timestamp.toLocaleTimeString([], {
                     hour: "2-digit",
@@ -240,9 +248,9 @@ export default function AIChat({
         <div className={styles.inputArea}>
           {queriesLeft <= 0 ? (
             <div className={styles.limitReached}>
-              <p>You&apos;ve reached your free query limit.</p>
+              <p>Anda telah mencapai batas kueri gratis hari ini.</p>
               <button className="btn btn-primary">
-                Connect Wallet to Continue
+                Hubungkan Wallet untuk Lanjut
               </button>
             </div>
           ) : (
@@ -251,7 +259,7 @@ export default function AIChat({
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={handleKeyDown}
-                placeholder="Ask about vulnerabilities..."
+                placeholder="Tanya tentang kerentanan..."
                 className={styles.input}
                 rows={1}
                 disabled={isLoading}

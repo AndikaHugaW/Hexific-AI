@@ -15,12 +15,12 @@
 
 .dropzone:hover {
   border-color: var(--primary);
-  background: rgba(99, 102, 241, 0.05);
+  background: rgba(16, 185, 129, 0.05);
 }
 
 .dropzone.active {
   border-color: var(--primary);
-  background: rgba(99, 102, 241, 0.1);
+  background: rgba(16, 185, 129, 0.1);
   box-shadow: var(--glow-primary);
 }
 
@@ -82,8 +82,9 @@
   width: 64px;
   height: 64px;
   border-radius: var(--radius-lg);
-  background: var(--gradient-secondary);
-  color: white;
+  background: var(--gradient-primary);
+  color: #052e16;
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.2);
 }
 
 .fileInfo {

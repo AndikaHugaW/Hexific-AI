@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  # Hexific Backend API
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - OPENAI_BASE_URL=${OPENAI_BASE_URL}
+      - OPENAI_MODEL=${OPENAI_MODEL}
+      - GROQ_API_KEY=${GROQ_API_KEY}
+      - ETHERSCAN_API_KEY=${ETHERSCAN_API_KEY}
+      - SUPABASE_URL=${SUPABASE_URL}
+      - SUPABASE_KEY=${SUPABASE_KEY}
+      - USE_DOCKER_SLITHER=true
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./temp:/app/temp
+    depends_on:
+      - slither
+    restart: unless-stopped
+
+  # Slither Analysis Container (built on startup)
+  slither:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.slither
+    # This container is used as a template - not run directly
+    # The API spawns ephemeral containers from this image
+    profiles:
+      - build-only
+
+# Networks for isolation
+networks:
+  default:
+    driver: bridge

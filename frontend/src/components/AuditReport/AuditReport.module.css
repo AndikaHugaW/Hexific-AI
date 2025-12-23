@@ -1,0 +1,406 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Header */
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+}
+
+.headerContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.auditType {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.contractInfo {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--glass-border);
+}
+
+.contractDetail {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.contractLabel {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.contractValue {
+  font-size: 0.875rem;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.address {
+  font-size: 0.875rem;
+  color: var(--primary-light);
+  background: var(--bg-tertiary);
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radius-sm);
+}
+
+/* Summary Stats */
+.summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1rem;
+}
+
+.statCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1.25rem;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  text-align: center;
+}
+
+.statValue {
+  font-size: 2rem;
+  font-weight: 800;
+  background: var(--gradient-primary);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.highStat .statValue {
+  background: linear-gradient(135deg, #f59e0b, #ef4444);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.mediumStat .statValue {
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.lowStat .statValue {
+  background: linear-gradient(135deg, #22c55e, #10b981);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.statLabel {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+/* AI Analysis */
+.aiAnalysis {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.sectionTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.aiContent {
+  padding: 1.5rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.aiContent pre {
+  font-family: inherit;
+  font-size: 0.875rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* Vulnerabilities */
+.vulnerabilities {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.vulnList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.vulnCard {
+  background: var(--bg-card);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  animation: slideUp 0.4s ease forwards;
+  opacity: 0;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.criticalBg {
+  border-left: 4px solid #ef4444;
+}
+
+.highBg {
+  border-left: 4px solid #f59e0b;
+}
+
+.mediumBg {
+  border-left: 4px solid #6366f1;
+}
+
+.lowBg {
+  border-left: 4px solid #22c55e;
+}
+
+.infoBg {
+  border-left: 4px solid #94a3b8;
+}
+
+.vulnHeader {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.vulnHeader:hover {
+  background: rgba(99, 102, 241, 0.05);
+}
+
+.vulnIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-lg);
+  background: var(--bg-tertiary);
+  flex-shrink: 0;
+}
+
+.vulnInfo {
+  flex: 1;
+  min-width: 0;
+}
+
+.vulnTitleRow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.vulnTitle {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  word-break: break-word;
+}
+
+.confidence {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+.expandButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--glass-border);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.expandButton:hover {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: white;
+}
+
+/* Vulnerability Details */
+.vulnDetails {
+  padding: 1rem 1.25rem 1.5rem;
+  border-top: 1px solid var(--glass-border);
+  background: var(--bg-secondary);
+}
+
+.detailSection {
+  margin-bottom: 1.25rem;
+}
+
+.detailSection:last-child {
+  margin-bottom: 0;
+}
+
+.detailLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 0.5rem;
+}
+
+.detailText {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--text-primary);
+}
+
+.locations {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.location {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.625rem 0.875rem;
+  background: var(--bg-tertiary);
+  border-radius: var(--radius-md);
+  font-size: 0.875rem;
+}
+
+.location code {
+  color: var(--primary-light);
+}
+
+.lines {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+}
+
+.locName {
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+}
+
+.codeBlock {
+  padding: 1rem;
+  background: var(--bg-primary);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  overflow-x: auto;
+  font-family: 'Fira Code', monospace;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+.codeBlock code {
+  color: var(--text-primary);
+}
+
+.askAiButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  padding: 0.625rem 1rem;
+  background: var(--gradient-secondary);
+  border: none;
+  border-radius: var(--radius-lg);
+  color: white;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-base);
+}
+
+.askAiButton:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--glow-secondary);
+}
+
+/* No Issues */
+.noIssues {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 3rem;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  text-align: center;
+  color: var(--success);
+}
+
+.noIssues h4 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.noIssues p {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}

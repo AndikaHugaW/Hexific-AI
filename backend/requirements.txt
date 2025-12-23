@@ -1,0 +1,26 @@
+# FastAPI Framework
+fastapi
+uvicorn[standard]
+python-multipart
+pydantic-settings
+
+# AI Integration
+openai
+groq
+
+# Database
+supabase
+
+# Utilities
+python-dotenv
+httpx
+aiofiles
+
+# Security
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+
+# Smart Contract Analysis
+# Note: slither-analyzer must be installed separately via pip
+# pip install slither-analyzer
+# Also requires solc (Solidity compiler)

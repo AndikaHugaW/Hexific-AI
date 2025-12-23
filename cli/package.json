@@ -1,0 +1,32 @@
+{
+  "name": "hexific-cli",
+  "version": "1.0.0",
+  "description": "CLI tool for Hexific Smart Contract Audit",
+  "type": "module",
+  "main": "index.js",
+  "bin": {
+    "hexific": "./index.js",
+    "hexific-audit": "./index.js"
+  },
+  "scripts": {
+    "test": "node index.js --help"
+  },
+  "keywords": [
+    "smart-contract",
+    "audit",
+    "security",
+    "solidity",
+    "ethereum",
+    "slither",
+    "ai"
+  ],
+  "author": "Hexific Team",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^1.6.0",
+    "chalk": "^5.3.0",
+    "commander": "^11.1.0",
+    "form-data": "^4.0.0",
+    "ora": "^7.0.1"
+  }
+}

@@ -1,0 +1,37 @@
+# Hexific Slither Sandbox
+# Isolated container for running smart contract analysis
+
+FROM python:3.11-slim
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    git \
+    curl \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Node.js (required for some Solidity features)
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
+    && apt-get install -y nodejs \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install solc-select and Slither
+RUN pip install --no-cache-dir \
+    slither-analyzer \
+    solc-select \
+    crytic-compile
+
+# Install common Solidity versions
+RUN solc-select install 0.8.20 0.8.19 0.8.18 0.8.17 0.8.0 0.7.6 0.6.12 \
+    && solc-select use 0.8.20
+
+# Create non-root user for security
+RUN useradd -m -s /bin/bash slither
+USER slither
+
+# Set working directory
+WORKDIR /workspace
+
+# Default command - run slither analysis
+ENTRYPOINT ["slither"]
+CMD ["--help"]

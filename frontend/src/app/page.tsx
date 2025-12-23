@@ -21,6 +21,7 @@ import AuditReport from "@/components/AuditReport";
 import AIChat from "@/components/AIChat";
 import SyntheticHero from "@/components/ui/synthetic-hero";
 import HexificFeatureGrid from "@/components/ui/feature-grid-enterprise-grade";
+import { PricingSection, HEXIFIC_PLANS } from "@/components/ui/pricing";
 import styles from "./page.module.css";
 
 type AuditMode = "zip" | "address";
@@ -247,6 +248,13 @@ export default function Home() {
 
         {/* Features Section */}
         <HexificFeatureGrid />
+
+        {/* Pricing Section */}
+        <PricingSection 
+          plans={HEXIFIC_PLANS}
+          heading="Paket Harga yang Sesuai untuk Anda"
+          description="Dipercaya oleh ribuan developer. Pilih paket yang tepat untuk kebutuhan audit keamanan smart contract Anda."
+        />
 
         {/* CTA Section */}
         <section className={styles.cta}>
